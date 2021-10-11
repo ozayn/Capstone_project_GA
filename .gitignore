@@ -2,8 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
-./data/original/*.csv
-data/
+data/original/
+#data/
 .DS_Store
 # C extensions
 *.so
