@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 data/original/
+data/clean/
 #data/
 .DS_Store
 # C extensions
