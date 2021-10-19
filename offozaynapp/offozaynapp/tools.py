@@ -27,7 +27,7 @@ def load_data(url, nrows):
 @st.cache
 def load_lat_lon(nrows):
     if check_platform()=='remote':
-        return pd.read_csv(get_url(config.sheet_url), nrows=nrows) 
+        return pd.read_csv(get_url(config.lat_lon_url), nrows=nrows) 
     else:
         return pd.read_csv('./data/nodes_lat_lon.csv', nrows=nrows) 
 
