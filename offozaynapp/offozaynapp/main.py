@@ -3,11 +3,14 @@ import tools
 import streamlit as st
 import pandas as pd
 import numpy as np
+import platform
 
 st.set_page_config(page_title="Offshore Leaks Exploration")
 
 
 st.title('Offshore Leaks')
+
+st.write(platform.platform())
 
 select_list = ['', 'node_id', 'jurisdiction', 'countries', 'country_codes', 'continents', 'company_type', 'jurisdiction_description', 'table']
 select_dict = {k.replace('_', ' ').title(): k for k in select_list}

@@ -5,10 +5,18 @@ import graphviz as graphviz
 import pandas as pd
 import networkx as nx
 from PIL import Image
+import platform
 
 # Taken with modification from
 # https://newbedev.com/pandas-how-to-read-csv-file-from-google-drive-public"""
 get_url = lambda u: 'https://drive.google.com/uc?export=download&id=' + u.split('/')[-2]
+    
+
+def check_platform():
+    pl = platform.platform()
+    if pl.startswith('macOS'):
+        return 'local'
+    return 'remote'
     
     
 @st.cache
@@ -18,14 +26,18 @@ def load_data(url, nrows):
 
 @st.cache
 def load_lat_lon(nrows):
-#     return pd.read_csv(get_url(config.sheet_url), nrows=nrows) 
-    return pd.read_csv('./data/nodes_lat_lon.csv', nrows=nrows) 
+    if check_platform()=='remote':
+        return pd.read_csv(get_url(config.sheet_url), nrows=nrows) 
+    else:
+        return pd.read_csv('./data/nodes_lat_lon.csv', nrows=nrows) 
 
 
 @st.cache(suppress_st_warning=True)
 def read_xlsx(sheet, nrows=10000):
-    #return pd.read_excel(get_url(config.sheet_url), sheet_name=sheet, nrows=nrows)
-    return pd.read_excel('./data/specific_edges.xlsx', sheet_name=sheet, nrows=nrows)
+    if check_platform()=='remote':
+        return pd.read_excel(get_url(config.sheet_url), sheet_name=sheet, nrows=nrows)
+    else:
+        return pd.read_excel('./data/specific_edges.xlsx', sheet_name=sheet, nrows=nrows)
 
 
 def create_digraph_new(df, count=10):   
