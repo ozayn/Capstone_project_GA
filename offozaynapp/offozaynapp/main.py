@@ -1,50 +1,51 @@
 
+import tools
 import streamlit as st
 import pandas as pd
 import numpy as np
 
+st.set_page_config(page_title="Offshore Leaks Exploration")
+
+
 st.title('Offshore Leaks')
 
+select_list = ['', 'node_id', 'jurisdiction', 'countries', 'country_codes', 'continents', 'company_type', 'jurisdiction_description', 'table']
+select_dict = {k.replace('_', ' ').title(): k for k in select_list}
 
-DATA_LAT_LON = ('https://drive.google.com/file/d/10l-06L2waxvG6pKbCwuX1wtPtrPjgPO4/view?usp=sharing')
 
-JURISDICTION_DATA_URL = ('https://drive.google.com/file/d/10eXidO511doY2M7dLQMZE00lGSVu_Vez/view?usp=sharing')
+select_key = st.sidebar.selectbox(
+    "Which field would you like to explore?",
+    tuple(select_dict.keys())
+)
 
-# Taken with modification from
-# https://newbedev.com/pandas-how-to-read-csv-file-from-google-drive-public"""
-get_url = lambda u: 'https://drive.google.com/uc?export=download&id=' + u.split('/')[-2]
+select_value = select_dict[select_key]
+
+if select_value:
+    st.write(select_value)
     
-    
-
-@st.cache
-def load_data(url, nrows):
-    data = pd.read_csv(get_url(url), nrows=nrows) 
-    return data
+    if select_value == 'countries':
+        tools.show_image('top_25_countries__address__intermediary__officer__entity.png', 'Countries')
 
 
-# Create a text element and let the reader know the data is loading.
-data_load_state = st.text('Loading data...')
-# Load 10,000 rows of data into the dataframe.
-data = load_data(JURISDICTION_DATA_URL, 10000)
-# Notify the reader that the data was successfully loaded.
-# data_load_state.text('Loading data...done!')
-data_load_state.text("Done! (using st.cache)")
 
-data_load_state = st.text('Loading data...')
-# Load 10,000 rows of data into the dataframe.
-lat_lon_data = load_data(DATA_LAT_LON, 10000)
-# Notify the reader that the data was successfully loaded.
-# data_load_state.text('Loading data...done!')
-data_load_state.text("Done! (using st.cache)")
-
-if st.checkbox('Show raw data'):
+    data = tools.read_xlsx(select_value)
     st.subheader('Raw data')
     st.write(data.head())
-    st.subheader('Jurisdiction Source')
-    hist_values = data['jurisdiction_source'].value_counts().sort_values()
-    st.bar_chart(hist_values)
-    
-if st.checkbox('Show Latitude & Longitude data'):
-    st.subheader('Raw data')
-    st.write(lat_lon_data.head())
-    st.map(lat_lon_data)
+
+
+    if st.checkbox('Show raw data'):
+        st.subheader(f'{select_key} Source')
+        hist_values = data[f'{select_value}_source'].value_counts().sort_values(ascending=False)
+        n_columns = st.slider('How many columns?', 0, hist_values.shape[0], min(15, hist_values.shape[0]))
+        st.bar_chart(hist_values.head(n_columns))
+        st.write(hist_values)
+
+    if st.checkbox('Show Latitude & Longitude data'):
+        lat_lon_data = tools.load_lat_lon(10000)
+        st.subheader('Raw data')
+        st.write(lat_lon_data.head())
+        st.map(lat_lon_data)
+
+
+    n_edges = st.slider('How many edges?', 0, data.shape[0], min(100, data.shape[0]))
+    tools.create_digraph_new(data, n_edges)
