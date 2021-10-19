@@ -40,12 +40,12 @@ if select_value:
         st.bar_chart(hist_values.head(n_columns))
         st.write(hist_values)
 
-    if st.checkbox('Show Latitude & Longitude data'):
-        lat_lon_data = tools.load_lat_lon(10000)
-        st.subheader('Raw data')
-        st.write(lat_lon_data.head())
-        st.map(lat_lon_data)
-
 
     n_edges = st.slider('How many edges?', 0, data.shape[0], min(100, data.shape[0]))
     tools.create_digraph_new(data, n_edges)
+    
+if st.checkbox('Show Latitude & Longitude data'):
+    lat_lon_data = tools.load_lat_lon(10000)
+    st.subheader('Raw data')
+    st.write(lat_lon_data.head())
+    st.map(lat_lon_data)
