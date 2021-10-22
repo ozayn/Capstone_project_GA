@@ -17,6 +17,9 @@ def check_platform():
     if pl.startswith('macOS'):
         return 'local'
     return 'remote'
+
+def is_local():
+    return check_platform()=='local'
     
     
 @st.cache

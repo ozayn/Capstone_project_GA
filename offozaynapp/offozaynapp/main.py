@@ -26,8 +26,9 @@ select_value = select_dict[select_key]
 if select_value:
     st.write(select_value)
     
-    if select_value == 'countries':
-        tools.show_image('top_25_countries__address__intermediary__officer__entity.png', 'Countries')
+    if tools.is_local():
+        if select_value == 'countries':
+            tools.show_image('top_25_countries__address__intermediary__officer__entity.png', 'Countries')
 
 
 
