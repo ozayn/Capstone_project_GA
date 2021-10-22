@@ -10,7 +10,7 @@ st.set_page_config(page_title="Offshore Leaks Exploration")
 
 st.title('Offshore Leaks')
 
-st.write(platform.platform())
+#st.write(platform.platform())
 
 select_list = ['', 'jurisdiction', 'countries', 'country_codes', 'continents', 'company_type', 'jurisdiction_description', 'table']
 select_dict = {k.replace('_', ' ').title(): k for k in select_list}
