@@ -29,18 +29,18 @@ def load_data(url, nrows):
 
 @st.cache
 def load_lat_lon(nrows):
-    if check_platform()=='remote':
-        return pd.read_csv(get_url(config.lat_lon_url), nrows=nrows) 
-    else:
+    if is_local():
         return pd.read_csv('./data/nodes_lat_lon.csv', nrows=nrows) 
+    else:
+        return pd.read_csv(get_url(config.lat_lon_url), nrows=nrows)
 
 
 @st.cache(suppress_st_warning=True)
 def read_xlsx(sheet, nrows=10000):
-    if check_platform()=='remote':
-        return pd.read_excel(get_url(config.sheet_url), sheet_name=sheet, nrows=nrows)
+    if is_local():
+        return pd.read_excel('./data/specific_edges_single.xlsx', sheet_name=sheet, nrows=nrows)
     else:
-        return pd.read_excel('./data/specific_edges.xlsx', sheet_name=sheet, nrows=nrows)
+        return pd.read_excel(get_url(config.sheet_url), sheet_name=sheet, nrows=nrows)
 
 
 def create_digraph_new(df, count=10):   
@@ -52,7 +52,7 @@ def create_digraph_new(df, count=10):
     G = nx.DiGraph()
     G.add_weighted_edges_from([tuple(x) for x in df.head(final_count).values])
     dot = nx.nx_pydot.to_pydot(G)
-    st.graphviz_chart(dot.to_string())
+    st.graphviz_chart(dot.to_string(), use_container_width=True)
     
 def show_image(name, caption):
     image = Image.open(f'images/{name}')

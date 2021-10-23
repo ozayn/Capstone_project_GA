@@ -32,24 +32,27 @@ if select_value:
 
 
 
-    data = tools.read_xlsx(select_value)
-    st.subheader('Raw data')
-    st.write(data.head())
+    weight_data = tools.read_xlsx(select_value)
+    st.write(f'Total {weight_data.shape[0]} edges')
 
+    st.subheader('Edges - Weighted')
+    st.write(weight_data.head())
 
+#     weight_data = weight_data[weight_data['weight']>1]
+    
     if st.checkbox('Show raw data'):
         st.subheader(f'{select_key} Source')
-        hist_values = data[f'{select_value}_source'].value_counts().sort_values(ascending=False)
-        n_columns = st.slider('How many columns?', 0, hist_values.shape[0], min(15, hist_values.shape[0]))
+        hist_values = weight_data[f'{select_value}_source'].value_counts().sort_values(ascending=False)
+        n_columns = st.slider('How many columns?', 0, hist_values.shape[0], min(10, hist_values.shape[0]))
         st.bar_chart(hist_values.head(n_columns))
         st.write(hist_values)
 
-
-    n_edges = st.slider('How many edges?', 0, data.shape[0], min(100, data.shape[0]))
-    tools.create_digraph_new(data, n_edges)
+    
+    n_edges = st.slider('How many edges?', 0, min(weight_data.shape[0], 100), min(10, weight_data.shape[0]))
+    tools.create_digraph_new(weight_data, n_edges)
     
 if st.checkbox('Show Latitude & Longitude data'):
     lat_lon_data = tools.load_lat_lon(10000)
     st.subheader('Raw data')
     st.write(lat_lon_data.head())
-    st.map(lat_lon_data)
+    st.map(lat_lon_data, zoom=1)

@@ -30,6 +30,42 @@
 | Edges              |   561393 |           8 |
 
 
+### Null Values for edges
+
+
+| edges      | Null Percentage   |
+|:-----------|:------------------|
+| end_date   | 94%               |
+| start_date | 58%               |
+| link       | 0%                |
+| TYPE       | 0%                |
+| END_ID     | 0%                |
+| START_ID   | 0%                |
+
+
+### Null Values for nodes
+
+| nodes                    | Null Percentage   |
+|:-------------------------|:------------------|
+| state                    | 98%               |
+| address                  | 79%               |
+| ibcRUC                   | 66%               |
+| incorporation_date       | 65%               |
+| status                   | 65%               |
+| company_type             | 63%               |
+| service_provider         | 62%               |
+| jurisdiction_description | 62%               |
+| jurisdiction             | 62%               |
+| longitude                | 37%               |
+| latitude                 | 37%               |
+| name                     | 20%               |
+| country_codes            | 0%                |
+| continents               | 0%                |
+| countries                | 0%                |
+| table                    | 0%                |
+| node_id                  | 0%                |
+
+
 
 
 
