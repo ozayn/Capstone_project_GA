@@ -8,7 +8,7 @@ data/clean/
 .DS_Store
 # C extensions
 *.so
-
+offozaynapp/offozaynapp/data/
 # Distribution / packaging
 .Python
 build/

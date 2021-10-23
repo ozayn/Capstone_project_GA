@@ -3,3 +3,5 @@ graphviz
 pydot
 openpyxl
 networkx
+plotly
+scipy

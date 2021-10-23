@@ -1,9 +1,11 @@
 
 import tools
+import plotly_tools
 import streamlit as st
 import pandas as pd
 import numpy as np
 import platform
+import maptools
 
 st.set_page_config(page_title="Offshore Leaks Exploration")
 
@@ -56,3 +58,14 @@ if st.checkbox('Show Latitude & Longitude data'):
     st.subheader('Raw data')
     st.write(lat_lon_data.head())
     st.map(lat_lon_data, zoom=1)
+    
+# if tools.is_local():  
+#     #tools.sample_plotly()
+    
+if st.checkbox('Show plotly'):
+    plotly_tools.test_plotly()
+
+#     plotly_tools.test_plotly2()
+
+if st.checkbox('Show Map plotly'):
+    maptools.map_plotly()
