@@ -44,11 +44,12 @@ def load_edges():
         return pd.read_csv(get_url(config.edges), low_memory=False)
 
 @st.cache
-def load_lat_lon(nrows, show_spinner=False):
+def load_lat_lon(show_spinner=False):
     if is_local():
-        return pd.read_csv('./data/nodes_lat_lon.csv', nrows=nrows) 
+        return pd.read_csv("~/Google Drive/My Drive/GA/capstone/data/clean/nodes_edges/nodes_lat_lon.csv") 
+#         return pd.read_csv('./data/nodes_lat_lon.csv') 
     else:
-        return pd.read_csv(get_url(config.lat_lon_url), nrows=nrows)
+        return pd.read_csv(get_url(config.lat_lon_url))
 
 
 @st.cache(suppress_st_warning=True, show_spinner=False)
