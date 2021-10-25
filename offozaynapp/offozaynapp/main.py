@@ -23,6 +23,21 @@ select_key = st.sidebar.selectbox(
     tuple(select_dict.keys())
 )
 
+
+select_link = st.sidebar.selectbox(
+    "Which link type would you like to explore?",
+    ('','registered address','related entity','shareholder of','intermediary of','trust settlor of','protector of',
+ 'joint settlor of','beneficiary of','tax advisor of','beneficial owner of','resident director of','secretary of','director of','trustee of trust of',
+ 'successor protector of','alternate director of','investment advisor of','authorised person / signatory of',
+ 'assistant secretary of','officer of','auditor of','legal advisor of','general accountant of',
+ 'Nominee Shareholder of','co-trustee of trust of','register of shareholder of','reserve director of','register of director of','bank signatory of',
+ 'personal directorship of','stockbroker of','correspondent addr. of','appointor of', 'president of',
+ 'treasurer of','safekeeping of','Nominee Director of','vice president of','Nominee Protector of','nominated person of',
+ 'auth. representative of','custodian of','chairman of','records & registers of',
+ 'Nominee Investment Advisor of','Nominee Trust Settlor of','Nominee Beneficiary of','Nominee Beneficial Owner of','nominee name of')
+)
+
+
 select_value = select_dict[select_key]
 
 if select_value:
@@ -54,18 +69,18 @@ if select_value:
     tools.create_digraph_new(weight_data, n_edges)
     
 if st.checkbox('Show Latitude & Longitude data'):
-    lat_lon_data = tools.load_lat_lon(10000)
+    lat_lon_data = tools.load_lat_lon()
     st.subheader('Raw data')
     st.write(lat_lon_data.head())
     st.map(lat_lon_data, zoom=1)
     
-# if tools.is_local():  
-#     #tools.sample_plotly()
     
-if st.checkbox('Show plotly'):
-    plotly_tools.test_plotly()
+# if st.checkbox('Show plotly'):
+#     plotly_tools.test_plotly()
 
-#     plotly_tools.test_plotly2()
 
 if st.checkbox('Show Map plotly'):
-    maptools.map_plotly()
+    if select_link=='':
+        st.write('Please select a link!')
+    if select_link:
+        maptools.map_plotly(select_link)
