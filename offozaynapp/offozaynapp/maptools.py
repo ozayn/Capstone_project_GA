@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import tools
 
-@st.cache(suppress_st_warning=True, show_spinner=False)
+# @st.cache(suppress_st_warning=False, show_spinner=False)
 def map_plotly(select_value=None):
 
     data_load_state = st.text('Loading data ... ')
