@@ -23,8 +23,7 @@ def map_plotly(select_value=None):
     st.write(f'Number of nodes: {nodes.shape[0]:,}')
     data_load_state.text('Loading data ... done!')
     
-    if nodes.shape[0]!=0 and edges.shape[0]!=0:
-        st.write('Continue')
+
 
 
     fig = go.Figure()
