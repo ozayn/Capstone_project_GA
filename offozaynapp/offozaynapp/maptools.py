@@ -17,7 +17,7 @@ def map_plotly(select_value=None):
 
 #     edges = edges.sample(min(edges.shape[0], 5000))
     st.write(edges.head(2))
-    all_edge_nodes = edges['START_ID'].values.tolist() + edges['END_ID'].values.tolist()
+    all_edge_nodes = edges['START_ID'].tolist() + edges['END_ID'].tolist()
     nodes = nodes[nodes['node_id'].isin(all_edge_nodes)]
     st.write(f'Number of edges: {edges.shape[0]:,}')
     st.write(f'Number of nodes: {nodes.shape[0]:,}')
