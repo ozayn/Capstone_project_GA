@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import tools
 
-# @st.cache(suppress_st_warning=False, show_spinner=False)
+@st.cache(suppress_st_warning=True, show_spinner=True)
 def map_plotly(select_value=None):
 
     data_load_state = st.text('Loading data ... ')
@@ -22,6 +22,9 @@ def map_plotly(select_value=None):
     st.write(f'Number of edges: {edges.shape[0]:,}')
     st.write(f'Number of nodes: {nodes.shape[0]:,}')
     data_load_state.text('Loading data ... done!')
+    
+    if nodes.shape[0]!=0 and edges.shape[0]!=0:
+        st.write('Continue')
 
 
     fig = go.Figure()
