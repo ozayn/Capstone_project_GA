@@ -14,6 +14,8 @@ def map_plotly(select_value=None):
     edges = tools.load_edges()
     if select_value:
         edges = edges[edges['link']==select_value]
+    st.write(f'Number of edges: {edges.shape[0]:,}')
+    edges = edges.sample(min(edges.shape[0], 5000))
     st.write(edges.head(2))
     data_load_state.text('Loading data ... done!')
 
@@ -22,10 +24,10 @@ def map_plotly(select_value=None):
 
     fig.add_trace(go.Scattergeo(
         locationmode = 'country names',
-        lon = nodes['longitude'].tolist(),
-        lat = nodes['latitude'].tolist(),
+        lon = nodes['lon'].tolist(),
+        lat = nodes['lat'].tolist(),
         hoverinfo = 'text',
-        text = nodes['countries'].tolist(),
+        text = nodes['country'].tolist(),
         mode = 'markers',
         marker = dict(
             size = 2,
@@ -41,8 +43,8 @@ def map_plotly(select_value=None):
         fig.add_trace(
             go.Scattergeo(
                 locationmode = 'country names',
-                lon = [edges.iloc[i]['longitude_source'], edges.iloc[i]['longitude_target']],
-                lat = [edges.iloc[i]['latitude_source'], edges.iloc[i]['latitude_target']],
+                lon = [edges.iloc[i]['lon_s'], edges.iloc[i]['lon_t']],
+                lat = [edges.iloc[i]['lat_s'], edges.iloc[i]['lat_t']],
                 mode = 'lines',
                 line = dict(width = 1,color = 'blue'),
 #                 opacity = float(df_flight_paths['cnt'][i]) / float(df_flight_paths['cnt'].max()),

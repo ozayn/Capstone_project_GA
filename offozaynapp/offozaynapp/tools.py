@@ -31,17 +31,17 @@ def load_data(url, nrows):
 
 @st.cache(suppress_st_warning=True, show_spinner=False)
 def load_nodes():
-    if is_local():
-        return pd.read_csv('./data/nodes_single.csv', low_memory=False) 
-    else:
-        return pd.read_csv(get_url(config.nodes), low_memory=False)
+#     if is_local():
+#         return pd.read_csv('./data/nodes_single.csv', low_memory=False) 
+#     else:
+    return pd.read_csv(get_url(config.nodes), low_memory=False)
     
 @st.cache(suppress_st_warning=True, show_spinner=False)
 def load_edges():
-    if is_local():
-        return pd.read_csv('./data/edges_all_single.csv', low_memory=False) 
-    else:
-        return pd.read_csv(get_url(config.edges), low_memory=False)
+#     if is_local():
+#         return pd.read_csv('./data/edges_all_single.csv', low_memory=False) 
+#     else:
+    return pd.read_csv(get_url(config.edges), low_memory=False)
 
 @st.cache
 def load_lat_lon(show_spinner=False):
