@@ -41,7 +41,7 @@ select_link = st.sidebar.selectbox(
 select_value = select_dict[select_key]
 
 if select_value:
-    st.write(select_value)
+    #st.write(select_value)
     
     if tools.is_local():
         if select_value == 'countries':
